@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Promille</title>
+<link rel="icon" href="">
+
+<style>
+body {
+  font-family: sans-serif;
+}
+.inl {
+    display:inline-block;
+}
+#f1,#f2,#f3,#f4,#f5 {
+    width:75px;
+}
+
+</style>
+</head>
+<body>
+<h2>PROMILLEBEREGNER</h2>
+<span class="inl">
+    <p>Køn m/k</p>
+    <input id="f1" type="text">
+</span>
+<span class="inl">
+    <p>Vægt</p>
+    <input id="f2" type="number">
+</span>
+<span class="inl">
+    <p>Genstande</p>
+    <input id="f3" type="number">
+
+</span>
+<span class="inl">
+    <p>Starttid</p>
+    <input id="f4" type="number">
+</span>
+<span class="inl">
+    <p>Sluttid</p>
+    <input id="f5" type="number">
+</span>
+<input id="b" type="button" value="Beregn" onclick="vis()">
+<p></p>
+<canvas id="mycanvas" style="max-width:600px;max-height:400px"
+    style="border:1px solid red;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+var vf1=document.getElementById("f1");
+var vf2=document.getElementById("f2");
+var vf3=document.getElementById("f3");
+var vf4=document.getElementById("f4");
+var vf5=document.getElementById("f5");
+
+function vis()
+{
+    var s1 = vf1.value; 
+    var s2 = parseFloat(vf2.value); 
+    var s3 = parseFloat(vf3.value); 
+    var s4 = parseFloat(vf4.value); 
+    var s5 = parseFloat(vf5.value); 
+    var mcanvas = document.getElementById('mycanvas');
+    var ctx = mcanvas.getContext('2d');
+
+    var xValues = [];
+    var yValues = [];
+    var yValues0 = [];
+    var yValues1 = [];
+    var yValues2 = [];
+    var yValues3 = [];
+
+    var rv = 1;
+    if (s1=="m") rv=s2*.68;
+    if (s1=="k") rv=s2*.55;
+    var ppg=12/rv;
+    var pf=.15
+    var top=ppg*s3-(s5-s4)*pf;
+    var t = s5+top/pf+1;
+    var st = t-s4;    
+    for (i=s4;i<t;i++) {
+        xValues.push(i);
+    }
+    for (i=0;i<s5-s4+1;i++) {
+        yValues.push(top/(s5-s4)*i);
+    }
+    for (i=1;i<st;i++) {
+        yValues.push(top-pf*i);
+    }
+        
+   
+    for (i=0;i<st;i++) {
+        yValues0.push(.0);
+    }
+    for (i=0;i<st;i++) {
+        yValues1.push(.5);
+    }
+    for (i=0;i<st;i++) {
+        yValues2.push(1.2);
+    }
+    for (i=0;i<st;i++) {
+        yValues3.push(2.0);
+    }
+
+new Chart(mcanvas, {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      pointRadius:0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,1.0)",
+      data: yValues
+    },{
+      pointRadius:0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(255,0,255,0.5)",
+      data: yValues1
+    },{
+      pointRadius:0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(255,0,255,0.5)",
+      data: yValues2
+    },{
+      pointRadius:0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(255,0,255,0.5)",
+      data: yValues3
+    },{
+      pointRadius:0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(255,0,255,0.5)",
+      data: yValues0
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {display: false}
+    }  
+  }
+
+});
+
+}
+</script>
+</body>
+</html>

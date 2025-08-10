@@ -81,7 +81,11 @@ function vis()
     var t = s5+top/pf+1;
     var st = t-s4;    
     for (i=s4;i<t;i++) {
-        xValues.push(i);
+        if (i<25) {
+            xValues.push(i);
+        } else {
+            xValues.push(i-24);
+        }
     }
     for (i=0;i<s5-s4+1;i++) {
         yValues.push(top/(s5-s4)*i);

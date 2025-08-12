@@ -19,7 +19,7 @@ body {
 </style>
 </head>
 <body>
-<h2>PROMILLEBEREGNER</h2>
+<h2>PROMILLEGRAF</h2>
 <span class="inl">
     <p>Køn m/k</p>
     <input id="f1" type="text">
@@ -82,9 +82,9 @@ function vis()
     var st = t-s4;    
     for (i=s4;i<t;i++) {
         if (i<25) {
-            xValues.push(i);
+            xValues.push(i.toString()+"/"+(i-s4).toString());
         } else {
-            xValues.push(i-24);
+            xValues.push((i-24).toString()+'/'+(i-s4).toString());
         }
     }
     for (i=0;i<s5-s4+1;i++) {
